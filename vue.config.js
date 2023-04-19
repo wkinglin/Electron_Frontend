@@ -1,4 +1,11 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true
+  runtimeCompiler: true,
+  transpileDependencies: false,
+  configureWebpack: {
+    externals: {
+      'electron': 'require("electron")'
+    },
+  },
 })
+
