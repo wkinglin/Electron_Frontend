@@ -28,8 +28,6 @@
           </el-form-item>
         </el-form>
 
-        
-        
     </el-card>
   </div>    
 </template>
@@ -130,6 +128,7 @@
       },
       clearVariables(){
         this.send("clearMatlab")
+        this.send(JSON.stringify(this.form.x))
       }
     }
   }
