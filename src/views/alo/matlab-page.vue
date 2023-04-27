@@ -2,26 +2,20 @@
   <div id="main">
     <el-card class="box-card">
         <div style="height:40px;">
-          <span style="float:left;">上传算法</span>
-          <el-button type="primary" @click="UploadFile" style="float:right;margin-right:5px;margin-top:4px;">开始运行算法</el-button>
+          <span style="float:left;">联合作战</span>
+          <div>
+            <el-button type="primary" @click="clearVariables" style="float:right;margin-right:5px;margin-top:4px;">清空变量域</el-button>
+            <el-button type="primary" @click="UploadFile" style="float:right;margin-right:5px;margin-top:4px;">开始运行算法</el-button>
+          </div>
         </div>
         
         <el-divider style="margin:;"></el-divider>
 
         <el-form id="form" ref="form" :model="form" label-position="left" label-width="160px">
-
-          <el-form-item label="请输入用户名">
-            <el-input  v-model="form.username" placeholder="请输入用户名"></el-input>
+          <el-form-item label="请输入x的值">
+            <el-input  v-model="form.x" placeholder="请输入x的值"></el-input>
           </el-form-item>
-          <el-form-item label="请输入密码">
-            <el-input  v-model="form.password"  placeholder="请输入密码" show-password></el-input>
-          </el-form-item>
-          <el-form-item label="请输入端口">
-            <el-input  v-model.number="form.port"  placeholder="请输入端口"></el-input>
-          </el-form-item>
-          <el-form-item label="本地浏览器">
-            <a href="bolt://localhost:`${this.form.port}`" style="float:left;">bolt://localhost:{{this.form.port}}</a>
-          </el-form-item>
+          
           <el-form-item label="上传文件">
             <el-upload class="upload-demo" drag action="" :file-list="fileList" :on-change="handleChange" multiple>
               <i class="el-icon-upload"></i>
@@ -29,9 +23,9 @@
             </el-upload>
           </el-form-item>
           
-          <!-- <el-form-item label="算法输出结果">
+          <el-form-item label="算法输出结果">
             <el-input  v-model="form.output" :rows="4" type="textarea" readOnly='true' placeholder="结果"></el-input>
-          </el-form-item> -->
+          </el-form-item>
         </el-form>
 
         
@@ -47,10 +41,7 @@
           message:"",
           json:"",
           form: {
-              input:[],
-              username:"",
-              password:"",
-              port: 7687,
+              x:"",
               output:"",
           },
           fileList:[],
@@ -137,6 +128,9 @@
       getOutput(msg){
         console.log(msg)
       },
+      clearVariables(){
+        this.send("clearMatlab")
+      }
     }
   }
 </script>
@@ -187,9 +181,5 @@
     }
     .el-form-item__content{
       font-size: 16px!important;
-    }
-
-    .upload-demo{
-      float:left;
     }
 </style>

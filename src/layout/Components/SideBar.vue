@@ -17,6 +17,11 @@
                 <span>查看算法</span>
               </el-menu-item>
 
+              <el-menu-item index="/matlab">
+                <i class="el-icon-s-order"></i>
+                <span>查看算法</span>
+              </el-menu-item>
+
             </el-menu>
         </el-aside>
     </el-container>
