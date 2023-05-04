@@ -9,13 +9,21 @@
           </div>
         </div>
         
-        <el-divider style="margin:;"></el-divider>
+        <el-divider></el-divider>
 
         <el-form id="form" ref="form" :model="form" label-position="left" label-width="160px">
-          <el-form-item label="请输入x的值">
-            <el-input  v-model="form.x" placeholder="请输入x的值"></el-input>
-          </el-form-item>
           
+          <el-form-item label="请选择算法">
+            <el-select style="float:left;height:auto" v-model="form.name" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.key"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
           <el-form-item label="上传文件">
             <el-upload class="upload-demo" drag action="" :file-list="fileList" :on-change="handleChange" multiple>
               <i class="el-icon-upload"></i>
@@ -23,9 +31,9 @@
             </el-upload>
           </el-form-item>
           
-          <el-form-item label="算法输出结果">
+          <!-- <el-form-item label="算法输出结果">
             <el-input  v-model="form.output" :rows="4" type="textarea" readOnly='true' placeholder="结果"></el-input>
-          </el-form-item>
+          </el-form-item> -->
         </el-form>
 
     </el-card>
@@ -39,10 +47,26 @@
           message:"",
           json:"",
           form: {
-              x:"",
+              name:"",
               output:"",
           },
           fileList:[],
+          options: [
+            {
+              key:0,
+              value: 'lianhe',
+              label: '联合作战'
+            }, 
+            {
+              key:1,
+              value: 'feiji',
+              label: '飞机'
+            }, 
+            {
+              key:2,
+              value: 'quzhu',
+              label: '驱逐舰'
+            }],
         }
     },
     mounted() {
@@ -76,7 +100,6 @@
       receive(msg){
         console.log("==websocket接收数据==");
         console.log(msg.data);
-        this.message = msg;
       },
       // socket连接失败
       error() {
@@ -86,42 +109,77 @@
       getInput(msg) {
         console.log("==websocket接收数据==");
         console.log(msg.data);
+      },
+      getUploadOutput(msg){
+        console.log("==websocket接收数据==");
+        console.log(msg.data);
 
+        let returnData = JSON.parse(msg.data);
+
+        if(returnData.status == "success"){
+          this.$message({
+            message: '成功上传',
+            type: 'success'
+          });
+        }
+        else{
+          this.$message.error(returnData.cause);
+        }
+        
+      },
+      getAloOutput(msg){
+        console.log("==websocket接收数据==");
+        console.log(msg.data);
+
+        let returnData = JSON.parse(msg.data);
+
+        if(returnData.status == "success"){
+          this.$message({
+            message: '成功上传',
+            type: 'success'
+          });
+          this.form.output = returnData.ret;
+        }
+        else{
+          this.$message.error(returnData.cause);
+        }
       },
       // 关闭socket
       close() {
         console.log("socket已经关闭");
       },
       async handleChange (file) {
-          this.fileList = [file],
-          this.blob = new Blob([JSON.stringify(file)], { type: 'application/json' });
-          console.log('blob', this.blob);
-      },
-      async UploadFile () {
+        
+        this.fileList = [file],
+        this.blob = new Blob([JSON.stringify(file)], { type: 'application/json' });
+        console.log('blob', this.blob);
+
+        this.socket.onmessage = this.getUploadOutput;
+
         if(this.fileList.length <= 0){
             this.$message.error('请选择文件');
             return
         }
         var reader = new FileReader();
-        for(var i = 0; i < this.fileList.length; i++){
 
-            this.send("createGraph");
-            reader.readAsText(this.fileList[i].raw);
-            console.log(this.fileList[i].raw.path);
-            let data = JSON.stringify({
-                    user: this.form.username,
-                    password:this.form.password,
-                    port:this.form.port,
-                    path:this.fileList[i].raw.path,
-                })
-            this.send(data);
-            console.log(data);
-            
-        }
-        this.$message({
-            message: '成功上传',
-            type: 'success'
-        });
+        this.send("upLoadTxt");
+        reader.readAsText(this.fileList[0].raw);
+        console.log(this.fileList[0].raw.path);
+        let data = JSON.stringify({
+                name:this.form.name,
+                path:this.fileList[0].raw.path,
+            })
+        this.send(data);
+        console.log(data);
+      },
+      async UploadFile () {
+        this.socket.onmessage = this.getAloOutput;
+        let data = JSON.stringify({
+          name: this.form.name,
+        })
+
+        this.send("execLianhe");
+        this.send(data);
       },
       getOutput(msg){
         console.log(msg)
@@ -146,6 +204,9 @@
       color: #fff !important;
       line-height: 24px;
       font-size: 15px;
+    }
+    .el-scrollbar__wrap{
+      margin-bottom:0px !important;
     }
     .tableLimit tr td .cell{
       overflow : hidden;
