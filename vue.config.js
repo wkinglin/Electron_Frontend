@@ -7,5 +7,10 @@ module.exports = defineConfig({
       'electron': 'require("electron")'
     },
   },
+  pluginOptions: {
+    electronBuilder: {
+      customFileProtocol: "/"
+    }
+  }
 })
 

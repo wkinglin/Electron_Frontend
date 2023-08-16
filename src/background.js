@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -10,9 +10,11 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
+let win;
+
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     show:true,
     height: 800,
     useContentSize: false,
@@ -75,6 +77,19 @@ app.on('ready', async () => {
   //   }
   // }
   createWindow()
+})
+
+ipcMain.on('request-window-minimize', () => {
+  if (win) {
+    win.minimize();
+  }
+})
+
+// 监听渲染进程发来的关闭窗口请求
+ipcMain.on('request-window-close', () => {
+  if (win) {
+    win.close();
+  }
 })
 
 // Exit cleanly on request from parent process in development mode.

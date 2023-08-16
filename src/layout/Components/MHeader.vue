@@ -13,7 +13,7 @@
 
 <script>
 import BreadCrumb from "@/components/BreadCrumb/bread-crumb.vue";
-import { remote } from 'electron';
+const ipcRenderer = require('electron').ipcRenderer;
 
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
       this.$store.commit('changeCollapsed',!this.$store.state.isCollapsed);
     },
     minimizeWin(){
-      remote.getCurrentWindow().minimize();
+      ipcRenderer.send('request-window-minimize')
     },
     maximizeWin(){
       // const win=remote.getCurrentWindow();
@@ -38,7 +38,7 @@ export default {
       // }
     },
     closeWin(){
-      remote.getCurrentWindow().close();
+      ipcRenderer.send('request-window-close')
     },
     returnPage(){
       this.$router.go(-1);

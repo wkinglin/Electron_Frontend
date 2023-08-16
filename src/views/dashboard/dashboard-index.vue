@@ -4,7 +4,7 @@
       <h2>实验室软件</h2>
       <p>本软件集成了多种功能,包括大数据分析,图分析等等</p>
     </el-card>
-    <div class="small-box">
+    <!-- <div class="small-box">
       <el-row class="rowLayout" :gutter="20">
         <el-col :span="8">
           <el-card style = "border-radius: 12px;cursor:pointer;" @click="goTo('algTable')">
@@ -117,7 +117,7 @@
         </el-col>
         
       </el-row>
-    </div>
+    </div> -->
   </div>
 </template>
 

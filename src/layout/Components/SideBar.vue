@@ -14,12 +14,32 @@
 
               <el-menu-item index="/alo">
                 <i class="el-icon-s-order"></i>
-                <span>查看算法</span>
+                <span>知识图谱构建</span>
               </el-menu-item>
 
               <el-menu-item index="/matlab">
                 <i class="el-icon-s-order"></i>
-                <span>查看算法</span>
+                <span>多作战因素模型</span>
+              </el-menu-item>
+
+              <el-menu-item index="/python">
+                <i class="el-icon-s-order"></i>
+                <span>信息域</span>
+              </el-menu-item>
+
+              <el-menu-item index="/hypo">
+                <i class="el-icon-s-order"></i>
+                <span>假设检验</span>
+              </el-menu-item>
+
+              <el-menu-item index="/combatSystem">
+                <i class="el-icon-s-order"></i>
+                <span>作战体系验证与评估</span>
+              </el-menu-item>
+
+              <el-menu-item index="/atlas">
+                <i class="el-icon-s-order"></i>
+                <span>图谱补全</span>
               </el-menu-item>
 
             </el-menu>

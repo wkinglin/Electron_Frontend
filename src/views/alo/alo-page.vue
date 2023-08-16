@@ -2,7 +2,7 @@
   <div id="main">
     <el-card class="box-card">
         <div style="height:40px;">
-          <span style="float:left;">上传算法</span>
+          <span style="float:left;">知识图谱构建</span>
           <el-button type="primary" @click="UploadFile" style="float:right;margin-right:5px;margin-top:4px;">开始运行算法</el-button>
         </div>
         
@@ -19,13 +19,13 @@
           <el-form-item label="请输入端口">
             <el-input  v-model.number="form.port"  placeholder="请输入端口"></el-input>
           </el-form-item>
-          <el-form-item label="本地浏览器">
+          <!-- <el-form-item label="本地浏览器">
             <a href="bolt://localhost:`${this.form.port}`" style="float:left;">bolt://localhost:{{this.form.port}}</a>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="上传文件">
             <el-upload class="upload-demo" drag action="" :file-list="fileList" :on-change="handleChange" multiple>
               <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>。</div>
+              <div class="el-upload__text">请上传excel文件</div>
             </el-upload>
           </el-form-item>
           
