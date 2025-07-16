@@ -1,5 +1,12 @@
 # lab-front
 
+建议使用nvm来进行node.js的管理， 需要使用node.js 16的版本
+
+```
+nvm install 16
+nvm use 16
+```
+
 ## Project setup
 ```
 npm install
