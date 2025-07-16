@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card" style = "border-radius: 12px">
+    <el-card class="box-card" style="border-radius: 12px">
       <h2>实验室软件</h2>
       <p>本软件集成了多种功能,包括大数据分析,图分析等等</p>
     </el-card>
@@ -76,7 +76,7 @@
             </div>
           </el-card>
         </el-col>
-        
+
       </el-row>
     </div>
 
@@ -115,71 +115,73 @@
             </div>
           </el-card>
         </el-col>
-        
+
       </el-row>
     </div> -->
   </div>
 </template>
 
 <script>
-  export default {
-    data(){
-      return {
-        path: "ws://127.0.0.1:9090/",
+export default {
+  data() {
+    return {
+      path: "ws://127.0.0.1:9090/",
+    }
+  },
+  mounted() {
+    this.init();
+  },
+
+  methods: {
+    init() {
+      if (typeof WebSocket === "undefined") {
+        alert("您的浏览器不支持socket");
+      }
+      else {
+        console.log("start")
+
+        this.socket = new WebSocket(this.path);
+        this.global.setWs(this.socket);
+        this.socket = this.global.ws;
+        this.socket.onopen = this.open;
+        // 监听socket错误信息
+        this.socket.onerror = this.error;
       }
     },
-    mounted() {
-      this.init();
+    open() {
+      console.log("socket连接成功");
     },
-    
-    methods:{
-      init() {
-        if (typeof WebSocket === "undefined") {
-          alert("您的浏览器不支持socket");
-        } 
-        else {
-          console.log("start")
-          
-          this.socket = new WebSocket(this.path);
-          this.global.setWs(this.socket);
-          this.socket=this.global.ws;
-          this.socket.onopen = this.open;
-          // 监听socket错误信息
-          this.socket.onerror = this.error;
-        }
-      },
-      open() {
-        console.log("socket连接成功");
-      },
-      // socket连接失败
-      error() {
-        console.log("连接错误");
-      },
-      close: function () {
-            this.send("close");
-            console.log("socket已经关闭")
-      },
-      goTo(pa){
-        this.$router.push({
-            path: pa,
-          })
-      }
+    // socket连接失败
+    error() {
+      console.log("连接错误");
+    },
+    close: function () {
+      this.send("close");
+      console.log("socket已经关闭")
+    },
+    goTo(pa) {
+      this.$router.push({
+        path: pa,
+      })
     }
   }
+}
 </script>
 
 <style>
-    .rowLayout{
-      width: auto;
-    }
-    .small-box {
-      margin-left: 50px;
-      margin-top: 20px;
-      margin-right: 50px;
-    }
-    .image-font{
-      font-family: "宋体";
-      font-size: 16px;
-      font-weight: bold;
-    }
+.rowLayout {
+  width: auto;
+}
+
+.small-box {
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-right: 50px;
+}
+
+.image-font {
+  font-family: "宋体";
+  font-size: 16px;
+  font-weight: bold;
+}
 </style>
