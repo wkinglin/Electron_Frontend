@@ -4,6 +4,7 @@ import Layout from '@/layout/index.vue'
 import Dashboard from '@/views/dashboard/dashboard-index.vue'
 import Alo from '@/views/alo/alo-page.vue'
 import MatlabPage from '@/views/alo/matlab-page.vue'
+import AloLianhe from '@/views/alo/alo-lianhe.vue'
 import PythonPage from '@/views/alo/python-page.vue'
 import Hypo from '@/views/alo/hypothesis-testing.vue'
 import combatSystem from '@/views/alo/combat-system.vue'
@@ -39,6 +40,14 @@ export default new Router({
           path: 'matlab',
           name: '多作战因素模型',
           component: MatlabPage,
+          meta:{
+            keepAlive: true
+          }
+        },
+        {
+          path: 'alo-lianhe',
+          name: '联合作战模型',
+          component: AloLianhe,
           meta:{
             keepAlive: true
           }

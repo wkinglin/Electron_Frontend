@@ -17,9 +17,14 @@
                 <span>知识图谱构建</span>
               </el-menu-item>
 
-              <el-menu-item index="/matlab">
+              <!-- <el-menu-item index="/matlab">
                 <i class="el-icon-s-order"></i>
                 <span>多作战因素模型</span>
+              </el-menu-item> -->
+
+              <el-menu-item index="/alo-lianhe">
+                <i class="el-icon-s-order"></i>
+                <span>联合作战模型</span>
               </el-menu-item>
 
               <el-menu-item index="/python">
