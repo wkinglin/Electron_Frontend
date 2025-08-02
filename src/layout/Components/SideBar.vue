@@ -27,6 +27,11 @@
                 <span>联合作战模型</span>
               </el-menu-item>
 
+              <el-menu-item index="/alo-python">
+                <i class="el-icon-s-order"></i>
+                <span>python算法</span>
+              </el-menu-item>
+
               <el-menu-item index="/python">
                 <i class="el-icon-s-order"></i>
                 <span>信息域</span>

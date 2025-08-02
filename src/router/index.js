@@ -9,6 +9,7 @@ import PythonPage from '@/views/alo/python-page.vue'
 import Hypo from '@/views/alo/hypothesis-testing.vue'
 import combatSystem from '@/views/alo/combat-system.vue'
 import atlas from '@/views/alo/Atlas-completion.vue'
+import AloPython from '@/views/alo/alo-python.vue'
 
 Vue.use(Router)
 
@@ -48,6 +49,14 @@ export default new Router({
           path: 'alo-lianhe',
           name: '联合作战模型',
           component: AloLianhe,
+          meta:{
+            keepAlive: true
+          }
+        },
+        {
+          path: 'alo-python',
+          name: 'python算法',
+          component: AloPython,
           meta:{
             keepAlive: true
           }
